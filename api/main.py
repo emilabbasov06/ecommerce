@@ -4,6 +4,8 @@ from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel
 from typing import Optional
 
+# add DELETE and UPDATE methods for both Categories and Products
+
 # Category
 class Category(BaseModel):
   category_name: str
