@@ -18,6 +18,11 @@ class Product(BaseModel):
   date_added: str
   category: Optional[Category]
 
+# Order
+class Order(BaseModel):
+  order_name: str
+  order_price: float
+
 
 # Connect to Database
 DB = pymysql.connect(
@@ -130,7 +135,7 @@ def get_categories():
 
 
 @app.get('/categories/{id}')
-def get_product(id: int):
+def get_category(id: int):
   cursor.execute(f'SELECT * FROM categories WHERE category_id={id}')
   category = cursor.fetchone()
   
@@ -160,3 +165,19 @@ def update_category(id: int, category: Category):
   cursor.execute(QUERY)
   DB.commit()
   return {'message': 'Category updated succesfully!'}
+
+
+@app.get('/orders')
+def get_orders():
+  cursor.execute('SELECT * FROM orders')
+  orders = cursor.fetchall()
+  return {'orders': orders}
+
+
+@app.post('/orders')
+def create_order(order: Order):
+  cursor.execute("""INSERT INTO orders (order_name, order_price) VALUES(%s, %s)""", (order.order_name, order.order_price))
+  DB.commit()
+  return {
+    'message': 'New order added succesfully!'
+  }
