@@ -85,6 +85,17 @@ def delete_product(id: int):
   return {'message': 'Selected product was deleted succesfully!'}
 
 
+@app.put('/products/{id}')
+def update_product(id: int, product: Product):
+  CATEGORY_ID = category(product.category.category_name)
+  QUERY = (f'UPDATE products SET product_name="{product.product_name}", content="{product.content}", price={product.price}, date_added="{product.date_added}", category={CATEGORY_ID} WHERE product_id={str(id)}')
+  
+  cursor.execute(QUERY)
+  DB.commit()
+  
+  return {'message': 'Product updated succesfully!'}
+
+
 # @app.put('/products/{id}')
 # def update_product(id: int, product: Product):
 #   cursor.execute("SELECT * FROM products WHERE product_id = ?", (str(id),))
@@ -141,3 +152,11 @@ def delete_category(id: int):
   cursor.execute("""DELETE FROM categories WHERE category_id = %s""", (str(id),))
   DB.commit()
   return {'message': 'Selected category was deleted succesfully!'}
+
+
+@app.put('/categories/{id}')
+def update_category(id: int, category: Category):
+  QUERY = (f'UPDATE categories SET category_name="{category.category_name}" WHERE category_id={str(id)}')
+  cursor.execute(QUERY)
+  DB.commit()
+  return {'message': 'Category updated succesfully!'}
