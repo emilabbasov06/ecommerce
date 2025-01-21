@@ -85,6 +85,32 @@ def delete_product(id: int):
   return {'message': 'Selected product was deleted succesfully!'}
 
 
+# @app.put('/products/{id}')
+# def update_product(id: int, product: Product):
+#   cursor.execute("SELECT * FROM products WHERE product_id = ?", (str(id),))
+#   existing_product = cursor.fetchone()
+#   CATEGORY_NAME = product.category.category_name
+
+#   if not existing_product:
+#       DB.close()
+#       raise HTTPException(status_code=404, detail="Selected product was not found")
+
+#   # Update the product
+#   cursor.execute(
+#       """
+#       UPDATE products
+#       SET product_name = ?, content = ?, price = ?, date_added = ?, category = ?
+#       WHERE product_id = ?
+#       """,
+#       (product.product_name, product.content, product.price, product.date_added, category(CATEGORY_NAME), str(id))
+#   )
+
+#   DB.commit()
+#   DB.close()
+
+#   return {"message": "Selected product updated successfully"}
+
+
 @app.get('/categories')
 def get_categories():
   cursor.execute('SELECT * FROM categories')
@@ -108,3 +134,10 @@ def create_category(category: Category):
   cursor.execute("""INSERT INTO categories (category_name) VALUES(%s)""", (category.category_name))
   DB.commit()
   return {'message': 'New Category added to Database'}
+
+
+@app.delete('/categories/{id}', status_code=status.HTTP_204_NO_CONTENT)
+def delete_category(id: int):
+  cursor.execute("""DELETE FROM categories WHERE category_id = %s""", (str(id),))
+  DB.commit()
+  return {'message': 'Selected category was deleted succesfully!'}
