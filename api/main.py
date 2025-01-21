@@ -76,7 +76,14 @@ def create_product(product: Product):
     return {'message': 'New product added succesfully!'}
   
   return {'message': 'There was some technical problem'}
-  
+
+
+@app.delete('/products/{id}', status_code=status.HTTP_204_NO_CONTENT)
+def delete_product(id: int):
+  cursor.execute("""DELETE FROM products WHERE product_id = %s""", (str(id),))
+  DB.commit()
+  return {'message': 'Selected product was deleted succesfully!'}
+
 
 @app.get('/categories')
 def get_categories():
