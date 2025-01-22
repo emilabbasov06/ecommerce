@@ -1,0 +1,18 @@
+{products.map((product) => (
+  <tr>
+    <td>{product.product_id}</td>
+    <td>{product.product_name}</td>
+    <td>{product.content}</td>
+    <td>{product.price}</td>
+    <td>{product.date_added}</td>
+    <td>{product.category}</td>
+  </tr>
+))}
+
+
+{categories.map((category) => (
+  <tr>
+    <td>{category.category_id}</td>
+    <td>{category.category_name}</td>
+  </tr>
+))}

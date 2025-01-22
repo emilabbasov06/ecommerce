@@ -3,8 +3,7 @@ import pymysql.cursors
 from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel
 from typing import Optional
-
-# add DELETE and UPDATE methods for both Categories and Products
+from fastapi.middleware.cors import CORSMiddleware
 
 # Category
 class Category(BaseModel):
@@ -49,6 +48,15 @@ def category(category_name):
 
 # Create the main pin-point for API
 app = FastAPI()
+
+origins = [
+  'http://localhost:5173'
+]
+
+app.add_middleware(
+  CORSMiddleware,
+  allow_origins=origins
+)
 
 @app.get('/products')
 def get_products():

@@ -1,0 +1,18 @@
+const [categories, setCategories] = useState([]);
+const [products, setProducts] = useState([]);
+
+useEffect(() => {
+  // Fetch data from the FastAPI backend
+  fetch("http://localhost:8000/categories")
+    .then((response) => response.json())
+    .then((categories) => setCategories(categories.categories))
+    .catch((error) => console.error("Error fetching data:", error));
+}, []);
+
+useEffect(() => {
+  // Fetch data from the FastAPI backend
+  fetch("http://localhost:8000/products")
+    .then((response) => response.json())
+    .then((products) => setProducts(products.products))
+    .catch((error) => console.error("Error fetching data:", error));
+}, []);
