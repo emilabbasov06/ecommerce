@@ -8,14 +8,15 @@
 }
 
 body {
-  height: 100vh;
   overflow-x: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #00111f, #002b44, #004255, #005d6b, #007080);
+  /* background: linear-gradient(135deg, #00111f, #002b44, #004255, #005d6b, #007080); */
+  background: url('./assets/background.jpg');
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
 }
 
@@ -36,7 +37,13 @@ body {
 }
 
 .logo span {
-  color: #169ec4;
+  background: url('./assets/background.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .comps {
@@ -55,12 +62,48 @@ body {
   flex-direction: column;
   gap: 2rem;
   color: white;
-  background: linear-gradient(135deg, rgba(0, 34, 51, 0.205), rgba(0, 48, 64, 0), rgba(255, 255, 255, 0.116));
-  backdrop-filter: blur(500px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  border: 1px solid rgba(253, 253, 253, 0.2);
-  box-shadow: 0 8px 10px 0 rgba(233, 238, 238, 0.308);
+  /* background: linear-gradient(135deg, rgba(0, 34, 51, 0.205), rgba(0, 48, 64, 0), rgba(255, 255, 255, 0.082)); */
+  /* backdrop-filter: blur(500px); */
+  /* -webkit-backdrop-filter: blur(10px); */
+  /* border-radius: 1rem; */
+  /* border: 1px solid rgba(253, 253, 253, 0.2); */
+  /* box-shadow: 0 8px 10px 0 rgba(233, 238, 238, 0.308); */
+
+
+  border: 1px solid rgba(255, 255, 255, .25);
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+  backdrop-filter: blur(15px);
+  color: #446;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout button {
+  border: 1px solid rgba(255, 255, 255, .25);
+  border-radius: 20px;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bolder;
+  background-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+  backdrop-filter: blur(15px);
+  color: #446;
+  transition: 0.5s all;
+}
+
+.logout button:hover {
+  background: linear-gradient(135deg, rgba(0, 34, 51, 0.205), rgba(0, 48, 64, 0), rgba(255, 255, 255, 0.082));
+  color: white;
+  cursor: pointer;
 }
 
 .categories {
@@ -85,20 +128,15 @@ body {
 }
 
 table {
+  height: 10%;
+  overflow-y: scroll;
   text-align: center;
   border: 1px solid white;
+  border-radius: 1rem;
   box-shadow: 1px 1px 20px rgba(27, 88, 90, 0.459);
 }
 
 td,
 th {
   padding: 0.3rem;
-}
-
-th {
-  border: 1px solid rgb(199, 193, 193);
-}
-
-td {
-  border-bottom: 1px solid rgb(199, 193, 193);
 }

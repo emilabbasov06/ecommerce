@@ -1,4 +1,4 @@
-function DBProducts() {
+function DBProducts({ products }) {
   return (
     <div className="db_component products">
       <h2>Products</h2>
@@ -11,14 +11,16 @@ function DBProducts() {
           <th>Date Added</th>
           <th>Category</th>
         </tr>
-        <tr>
-          <td>1</td>
-          <td>IPhone 14 Pro</td>
-          <td>Some phone</td>
-          <td><span className="money">1299.89 $</span></td>
-          <td>25th January 2024</td>
-          <td>Smartphones</td>
-        </tr>
+        {products.map((product) => (
+          <tr>
+            <td>{product.product_id}</td>
+            <td>{product.product_name}</td>
+            <td>{product.content}</td>
+            <td>{product.price} $</td>
+            <td>{product.date_added}</td>
+            <td>{product.category}</td>
+          </tr>
+        ))}
       </table>
     </div>
   );

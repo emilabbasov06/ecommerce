@@ -1,4 +1,4 @@
-function DBCategories() {
+function DBCategories({ categories }) {
   return (
     <div className="db_component categories">
       <h2>Categories</h2>
@@ -7,14 +7,13 @@ function DBCategories() {
           <th>CID</th>
           <th>Category</th>
         </tr>
-        <tr>
-          <td>1</td>
-          <td>Watches</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Smartphones</td>
-        </tr>
+
+        {categories.map((category) => (
+          <tr>
+            <td>{category.category_id}</td>
+            <td>{category.category_name}</td>
+          </tr>
+        ))}
       </table>
     </div>
   );
