@@ -6,12 +6,14 @@ function DBCategories({ categories }) {
         <tr>
           <th>CID</th>
           <th>Category</th>
+          <th>Created At</th>
         </tr>
 
         {categories.map((category) => (
           <tr>
             <td>{category.category_id}</td>
             <td>{category.category_name}</td>
+            <td>{category.created_at}</td>
           </tr>
         ))}
       </table>

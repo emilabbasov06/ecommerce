@@ -4,7 +4,17 @@ import DBCategories from "../components/DBCategories";
 import DBProducts from "../components/DBProducts";
 import DBOrders from "../components/DBOrders";
 
+import { useNavigate } from "react-router-dom";
+
 function Dashboard() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    navigate('/');
+  };
+
+
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -65,7 +75,7 @@ function Dashboard() {
           </div>
 
           <div className="logout">
-            <button>Log out</button>
+            <button onClick={handleLogout}>Log out</button>
           </div>
         </header>
       </div>

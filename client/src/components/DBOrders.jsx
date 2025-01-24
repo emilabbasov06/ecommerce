@@ -13,7 +13,7 @@ function DBOrders({ orders }) {
           <tr>
             <td>{order.order_id}</td>
             <td>{order.order_name}</td>
-            <td>{order.order_date}</td>
+            <td>{order.created_at}</td>
             <td>{order.order_price} $</td>
           </tr>
         ))}

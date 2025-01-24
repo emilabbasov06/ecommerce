@@ -17,8 +17,8 @@ function DBProducts({ products }) {
             <td>{product.product_name}</td>
             <td>{product.content}</td>
             <td>{product.price} $</td>
-            <td>{product.date_added}</td>
-            <td>{product.category}</td>
+            <td>{product.created_at}</td>
+            <td>{product.category_id}</td>
           </tr>
         ))}
       </table>

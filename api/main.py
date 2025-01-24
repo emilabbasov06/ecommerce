@@ -1,7 +1,7 @@
 import pymysql
 import pymysql.cursors
 from fastapi import FastAPI, HTTPException, status
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import Optional
 from fastapi.middleware.cors import CORSMiddleware
 from pymysql.err import InterfaceError
@@ -21,6 +21,11 @@ class Product(BaseModel):
 class Order(BaseModel):
   order_name: str
   order_price: float
+
+# LoginForm
+class Login(BaseModel):
+  email: EmailStr
+  password: str
 
   
 try:
@@ -51,17 +56,33 @@ try:
   app = FastAPI()
 
   origins = [
-    'http://localhost:5173'
+    'http://localhost:5173',
   ]
 
   app.add_middleware(
     CORSMiddleware,
     allow_origins=origins
   )
+  
+  @app.post('/check')
+  def check_user(login: Login):
+    EMAIL = login.email
+    PASS = login.password
+    
+    print(EMAIL)
+    print(PASS)
+    
+    result = cursor.execute(f'SELECT * FROM users WHERE email="{EMAIL}" AND password="{PASS}"')
+    
+    if result:
+      return {'checked': True}
+    
+    return {'checked': False}
+  
 
   @app.get('/products')
   def get_products():
-    cursor.execute('SELECT * FROM products')
+    cursor.execute(f'SELECT * FROM products')
     products = cursor.fetchall()
     return {'products': products}
 
