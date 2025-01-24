@@ -6,6 +6,11 @@ from typing import Optional
 from fastapi.middleware.cors import CORSMiddleware
 from pymysql.err import InterfaceError
 
+# Add User Authentication
+# Work on design
+# Make it a lot more secure
+
+
 # Category
 class Category(BaseModel):
   category_name: str
