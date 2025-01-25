@@ -9,31 +9,31 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await fetch("http://localhost:8000/check", {
+      const response = await fetch('http://localhost:8000/check', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }), // Send email and password
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
-      alert(data);
 
-      if (response.ok && data.checked) {
-        localStorage.setItem('authToken', 'dummyAuthToken'); // Store token
-        navigate('/dashboard'); // Redirect to dashboard
+      if (data.checked) {
+        // Navigate to dashboard if authentication is successful
+        localStorage.setItem('authToken', email);
+        navigate('/dashboard');
       } else {
-        setError('Invalid email or password.');
+        // Show error message if authentication fails
+        setErrorMessage('Invalid email or password. Please try again.');
       }
     } catch (error) {
-      console.error('Error during login:' + error);
-      setError('Something went wrong. Please try again.');
+      console.error('Error during login:', error);
+      setError('An error occurred. Please try again later.');
     }
   };
-
-
 
   return (
     <div className="container">

@@ -66,24 +66,22 @@ try:
 
   app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins
+    allow_origins=["*"],  # You can specify a list of allowed origins instead of "*"
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
   )
   
   @app.post('/check')
-  def check_user(login: Login):
+  def check(login: Login):
     EMAIL = login.email
-    PASS = login.password
+    PASSWORD = login.password
     
-    print(EMAIL)
-    print(PASS)
-    
-    result = cursor.execute(f'SELECT * FROM users WHERE email="{EMAIL}" AND password="{PASS}"')
-    
-    if result:
+    checked = cursor.execute('SELECT * FROM users WHERE email=%s AND password=%s', (EMAIL, PASSWORD))
+    if checked:
       return {'checked': True}
     
     return {'checked': False}
-  
 
   @app.get('/products')
   def get_products():
