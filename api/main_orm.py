@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException, status
 
 from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Sequence, create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -105,15 +105,51 @@ def check(login: Login, db: Session = Depends(get_db)):
 @app.get('/categories')
 def get_categories(db: Session = Depends(get_db)):
   categories = db.query(CategoryModel).all()
-  return {'categories': categories}
+  if categories:
+    return {'categories': categories}
+  
+  return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'There was a problem!')
+
+@app.get('/categories/{id}')
+def get_category(id: int, db: Session = Depends(get_db)):
+  category = db.query(CategoryModel).filter(CategoryModel.category_id == id).first()
+  if category:
+    return {'category': category}
+
+  return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Category with id: {id} not found!')
 
 
 @app.get('/products')
 def get_products(db: Session = Depends(get_db)):
   products = db.query(ProductModel).all()
-  return {'products': products}
+  if products:
+    return {'products': products}
+
+  return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'There was a problem!')
+
+
+@app.get('/products/{id}')
+def get_product(id: int, db: Session = Depends(get_db)):
+  product = db.query(ProductModel).filter(ProductModel.product_id == id).first()
+  if product:
+    return {'product': product}
+  
+  return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'There was a problem!')
+
 
 @app.get('/orders')
 def get_orders(db: Session = Depends(get_db)):
   orders = db.query(OrderModel).all()
-  return {'orders': orders}
+  if orders:
+    return {'orders': orders}
+  
+  return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'There was a problem!')
+
+
+@app.get('/orders/{id}')
+def get_order(id: int, db: Session = Depends(get_db)):
+  order = db.query(OrderModel).filter(OrderModel.order_id == id).first()
+  if order:
+    return {'order': order}
+  
+  return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'There was a problem!')
